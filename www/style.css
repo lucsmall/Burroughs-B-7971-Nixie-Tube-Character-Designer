@@ -1,0 +1,114 @@
+body, td {
+  font-family: arial;
+}
+
+img {
+  cursor: pointer;
+  border: solid 1px white;
+}
+
+img.hilite {
+  border: solid 1px red;
+  background-color: #dddddd;
+}
+
+#value_list
+{
+  border: solid 1px #dddddd;
+  background-color: #dddddd;
+  width: 100%;
+  height: 300px;
+  overflow: auto;
+}
+
+#bit_labels
+{
+  font-size: 10px;
+}
+
+#bit_labels, #components {
+  width: 768px;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+#bit_labels li {
+  height: 16px;
+  border: none;
+}
+
+#components li, div.component, div#values {
+  height: 120px;
+}
+
+#bit_labels li, #components li {
+  float: left;
+  text-align: center;
+}
+
+#bit_labels li, #components li, div.component, div.pin, div.seg {
+  width: 48px;
+}
+
+#components li {
+  cursor: pointer;
+  border: none;
+}
+
+.bit_is_0
+{
+  background-image: url(images/bit-box-0.png);
+}
+
+.bit_is_1
+{
+  background-image: url(images/bit-box-1.png);
+}
+
+li.hi-bit-title
+{
+  color: #003366;
+}
+
+div.seg, div.pin
+{
+  font-size: 12px;
+  height: 20px;
+}
+
+div.seg {
+  padding-top: 20px;
+  color: black;
+}
+
+div.pin {
+  padding-top: 15px;
+  color: white;
+}
+
+#values {
+  background-image: url(images/values.png);
+  width: 228px;
+}
+
+#value_dec, #value_hex, #value_bin {
+  width: 180px;
+  height: 20px;
+  text-align: right;
+  font-size: 13px;
+}
+
+#value_dec {
+  padding-top: 17px;
+}
+
+#value_hex {
+  padding-top: 15px;
+}
+
+#value_bin {
+  padding-top: 16px;
+}
+
+

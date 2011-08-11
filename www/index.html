@@ -1,0 +1,101 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.6.custom.css">
+    <script type="text/javascript" src="js/jquery-1.4.3.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.8.6.custom.min.js"></script>
+    <script type="text/javascript" src="utility.js"></script>
+    <script type="text/javascript" src="b7971.js"></script>
+  </head>
+  <body>
+    <table border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td> &nbsp; </td>
+        <td> 
+          <ul id="bit_labels"></ul>
+        </td>
+        <td>  &nbsp; </td>
+      </tr>
+      <tr>
+        <td valign="top">
+          <img src="images/key.png"/>
+        </td>
+        <td valign="top">
+          <ul id="components"></ul>
+        </td>
+        <td valign="top">
+          <div id="values">
+            <div id="value_dec"></div>
+            <div id="value_hex"></div>
+            <div id="value_bin"></div>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <br/>
+
+    
+    <table width="1085" cellspacing="0" cellpadding="0" border="0">
+      <tr>
+        <td width="300" valign="top" align="center">
+
+    <table cellspacing="0" cellpadding="0" border="0">
+      <tr>
+        <td colspan="5" align="center">
+          <img src="images/t-b.png" class="tile" data-seg="1" data-pin="8"/>
+        </td>
+      </tr>
+
+      <tr>
+        <td align="center"><img src="images/sides.png" class="tile" data-seg="6" data-pin="15"/></td>
+        <td align="center"><img src="images/br-tl.png" class="tile" data-seg="7" data-pin="16"/></td>
+        <td align="center"><img src="images/sides.png" class="tile" data-seg="8" data-pin="1"/></td>
+        <td align="center"><img src="images/bl-tr.png" class="tile" data-seg="9" data-pin="4"/></td>
+        <td align="center"><img src="images/sides.png" class="tile" data-seg="2" data-pin="5"/></td>
+      </tr>
+      
+      <tr>
+        <td align="center">&nbsp;</td>
+        <td align="center"><img src="images/middle.png" class="tile" data-seg="14" data-pin="12"/></td>
+        <td align="center">&nbsp;</td>
+        <td align="center"><img src="images/middle.png" class="tile" data-seg="10" data-pin="7"/></td>
+        <td align="center">&nbsp;</td>
+      </tr>
+
+      <tr>
+        <td align="center"><img src="images/sides.png" class="tile" data-seg="5" data-pin="14"/></td>
+        <td align="center"><img src="images/bl-tr.png" class="tile" data-seg="13" data-pin="17"/></td>
+        <td align="center"><img src="images/sides.png" class="tile" data-seg="12" data-pin="10"/></td>
+        <td align="center"><img src="images/br-tl.png" class="tile" data-seg="11" data-pin="3"/></td>
+        <td align="center"><img src="images/sides.png" class="tile" data-seg="3" data-pin="6"/></td>
+      </tr>
+
+      <tr>
+        <td colspan="5" align="center">
+          <img src="images/t-b.png" class="tile" data-seg="4" data-pin="9"/>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="5" align="center">
+          <img src="images/under.png" class="tile" data-seg="15" data-pin="2"/>
+         </td>
+      </tr>
+    </table>
+        </td>
+        <td valign="top">
+          <div id="value_list">
+          Annotation (eg A, b, 5, *):
+          <input type="text" name="value_comment" value="" id="value_comment"/>
+          <input type="button" name="add" value="Add to List" id="add_value"/>
+          <input type="button" name="clear" value="Clear List" id="clear_values"/>
+          <hr/>
+            <table id="value_table" border="0">
+            </table>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+ </body>
+</html>
