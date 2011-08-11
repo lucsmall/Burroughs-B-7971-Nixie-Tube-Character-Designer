@@ -1,5 +1,6 @@
 <html>
   <head>
+    <title>B-7971 Character Designer</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.8.6.custom.css">
     <script type="text/javascript" src="js/jquery-1.4.3.min.js"></script>
@@ -85,13 +86,17 @@
         </td>
         <td valign="top">
           <div id="value_list">
-          Annotation (eg A, b, 5, *):
-          <input type="text" name="value_comment" value="" id="value_comment"/>
-          <input type="button" name="add" value="Add to List" id="add_value"/>
-          <input type="button" name="clear" value="Clear List" id="clear_values"/>
-          <hr/>
-            <table id="value_table" border="0">
-            </table>
+            <div id="value_actions">
+              <span class="title">Comment:</span> 
+              <input type="text" name="value_comment" value="" id="value_comment"/>
+              <span class="hint">eg. A, b, 5, *</span>
+              <input type="button" name="add" value="Add to List" id="add_value"/>
+              <input type="button" name="clear" value="Clear List" id="clear_values"/>
+            </div>
+            <div id="value_table_container">
+              <table id="value_table" border="0">
+              </table>
+            </div>
           </div>
         </td>
       </tr>

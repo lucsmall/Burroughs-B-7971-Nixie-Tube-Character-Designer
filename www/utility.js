@@ -4,3 +4,13 @@ function pad_left(str, pad_string, length) {
   }
   return str;
 }
+
+ function value_as_hex(value)
+ {
+    return "0x" + pad_left(value.toString(16), "0", 4);
+ }
+
+ function value_as_binary(value)
+ {
+    return "0b" + pad_left(value.toString(2), "0", 16);
+ }

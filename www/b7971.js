@@ -1,5 +1,6 @@
 $(document).ready(function(){
   var values = new Array();
+  var comments = new Array();
   var current_value = 0;
 
   setup();
@@ -66,6 +67,16 @@ $(document).ready(function(){
       i++;
     });
  }
+ 
+ function current_value_as_hex()
+ {
+    return value_as_hex(current_value);
+ }
+ 
+ function current_value_as_binary()
+ {
+    return value_as_binary(current_value);
+ }
 
  function render_state() {
     $("img.tile").each(function(){ 
@@ -92,10 +103,8 @@ $(document).ready(function(){
     // update and display current value
     update_current_value();
     $("#value_dec").text(current_value);
-    $("#value_hex").text("0x");
-    $("#value_hex").append(pad_left(current_value.toString(16), "0", 4));
-    $("#value_bin").text("0b");
-    $("#value_bin").append(pad_left(current_value.toString(2), "0", 16));
+    $("#value_hex").text(current_value_as_hex());
+    $("#value_bin").text(current_value_as_binary());
   }
 
   function render_list()
@@ -105,7 +114,10 @@ $(document).ready(function(){
     //$("#value_table").text("Values:");
     $.each(values, function(index, value) { 
       tr = $("<tr/>").appendTo($("#value_table"));
-      $("<td/>").appendTo(tr).text(value);
+      $("<td width='10%' class='number'/>").appendTo(tr).text(value);
+      $("<td width='10%' class='number'/>").appendTo(tr).text(value_as_hex(value));
+      $("<td width='30%' class='number'/>").appendTo(tr).text(value_as_binary(value));
+      $("<td width='50%' class='comment'/>").appendTo(tr).text("// " + comments[index]);
     });
   }
 
@@ -146,7 +158,8 @@ $(document).ready(function(){
 
   // add the current pattern to the list
   $("#add_value").click(function() {
-    values.push($("#value_hex").text()); 
+    values.push(current_value);
+    comments.push($("#value_comment").val()); 
     render_list();
     // clear comment ready for next patter
     $("#value_comment").val("");
@@ -155,6 +168,7 @@ $(document).ready(function(){
   // clear the list of patterns
   $("#clear_values").click(function() {
     values = new Array();
+    comments = new Array();
     render_list();
   });
 });

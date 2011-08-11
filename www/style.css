@@ -1,5 +1,6 @@
 body, td {
-  font-family: arial;
+  font-family: arial, sans-serif;
+  font-size: 10pt;
 }
 
 img {
@@ -12,13 +13,54 @@ img.hilite {
   background-color: #dddddd;
 }
 
+.title {
+  color: #003366;
+  font-size: 12pt;
+}
+
+.hint {
+  font-style: italic;
+  color: #336699;
+}
+
 #value_list
 {
-  border: solid 1px #dddddd;
-  background-color: #dddddd;
+  border: solid 1px #336699;
+  
   width: 100%;
+ 
+}
+
+#value_actions
+{
+   padding: 4px 4px 4px 4px;
+   background-color: #dddddd;
+}
+
+
+#value_table_container
+{
+  border-top: solid 1px #336699;
   height: 300px;
   overflow: auto;
+}
+
+#value_table
+{
+  width: 100%;
+}
+
+#value_table td.number
+{
+  text-align: right;
+  font-family: courier, monospace;
+}
+
+#value_table td.comment
+{
+  color: green;
+  font-style: italic;
+  font-family: courier, monospace;
 }
 
 #bit_labels
