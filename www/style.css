@@ -3,6 +3,10 @@ body, td {
   font-size: 10pt;
 }
 
+h1 {
+  color: #336699;
+}
+
 img {
   cursor: pointer;
   border: solid 1px white;
@@ -21,6 +25,17 @@ img.hilite {
 .hint {
   font-style: italic;
   color: #336699;
+}
+
+.help {
+  color: #336699;
+  font-size: 12pt;
+  margin-bottom: 10px;
+}
+
+#sort_options
+{
+  margin-bottom: 10px;
 }
 
 #value_list
@@ -78,6 +93,9 @@ img.hilite {
 #bit_labels li {
   height: 16px;
   border: none;
+  font-weight: bold;
+  border-left: solid 1px #336699;
+  width: 47px;
 }
 
 #components li, div.component, div#values {
@@ -89,13 +107,17 @@ img.hilite {
   text-align: center;
 }
 
-#bit_labels li, #components li, div.component, div.pin, div.seg {
+#components li, div.component, div.pin, div.seg {
   width: 48px;
 }
 
 #components li {
   cursor: pointer;
   border: none;
+}
+
+#values {
+  font-family: courier, monospace;
 }
 
 .bit_is_0

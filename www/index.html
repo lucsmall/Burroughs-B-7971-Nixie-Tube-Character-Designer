@@ -6,9 +6,21 @@
     <script type="text/javascript" src="js/jquery-1.4.3.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.8.6.custom.min.js"></script>
     <script type="text/javascript" src="utility.js"></script>
+    <script type="text/javascript" src="js/jquery.sortelements.js"></script>
+    <script type="text/javascript" src="js/jquery.reverseorder.js"></script>
     <script type="text/javascript" src="b7971.js"></script>
   </head>
   <body>
+    <h1>Burroughs B-7971 Nixie Tube Character Designer</h1>
+    <div class="help">
+      Map segments or pins to bits &mdash; Design your character &mdash; Type a comment &mdash; Add it to your list &mdash; Export as code &mdash; Easy!
+    </div>
+    <div id="sort_options">
+      <input type="button" name="sort_segments" id="sort_segments" value="Order by Segments" class="button"/>
+      <input type="button" name="sort_pins" id="sort_pins" value="Order by Pins" class="button"/>
+      <input type="button" name="reverse" id="reverse" value="Reverse Order" class="button"/>
+      <span class="help"><i>and drag-and-drop:</i></span>
+    </div>
     <table border="0" cellspacing="0" cellpadding="0">
       <tr>
         <td> &nbsp; </td>
@@ -90,8 +102,9 @@
               <span class="title">Comment:</span> 
               <input type="text" name="value_comment" value="" id="value_comment"/>
               <span class="hint">eg. A, b, 5, *</span>
-              <input type="button" name="add" value="Add to List" id="add_value"/>
-              <input type="button" name="clear" value="Clear List" id="clear_values"/>
+              <input type="button" name="add" value="Add to List" id="add_value" class="button"/>
+              <input type="button" name="clear" value="Clear List" id="clear_values" class="button"/>
+              <input type="button" name="export" value="Export" id="export" class="button"/>
             </div>
             <div id="value_table_container">
               <table id="value_table" border="0">
@@ -100,7 +113,20 @@
           </div>
         </td>
       </tr>
+      
+      <tr>
+        <td align="center">
+          <input type="button" name="fill_pattern" value="Fill" id="fill_pattern" class="button"/>
+          <input type="button" name="invert_pattern" value="Invert" id="invert_pattern" class="button"/>
+          <input type="button" name="clear_pattern" value="Clear" id="clear_pattern" class="button"/>          
+        </td>
+        <td> &nbsp; </td>
+      </tr>
     </table>
-
+    
+    <div id="export_dialog" title="Export">
+      <div class="help">Copy and paste into your source code:</div>
+      <textarea rows="20" cols="80" id="export_text"></textarea>
+    </div>
  </body>
 </html>

@@ -1,7 +1,7 @@
 $(document).ready(function(){
-  var values = new Array();
+  var patterns = new Array();
   var comments = new Array();
-  var current_value = 0;
+  var current_pattern = 0;
 
   setup();
   render_state();
@@ -19,12 +19,13 @@ $(document).ready(function(){
       },   
       stop: function() {
         render_state();
+        render_list();
       }
     });
     $("#components").disableSelection();
   
-    $("#add_value").button();
-    $("#clear_values").button();
+    $(".button").button();
+    $("#export_dialog").dialog({ autoOpen: false, width: 'auto' });
 
     // fade down tiles for unselected
     $("img.tile").fadeTo(0, 0.1);
@@ -38,45 +39,83 @@ $(document).ready(function(){
     // setup the bit/seg/pins 
     for(i=0;i<16;i++) {
       // setup the labels for the bits
-      var bit_label = $("<li class='ui-state-default'/>").appendTo($("#bit_labels"))
+      var bit_label = $("<li/>").appendTo($("#bit_labels"))
       bit_label.text("bit" + (15-i));
       if (i<8) bit_label.addClass("hi-bit-title");
       // create a containing li, set the data about segment 
       var component_container = $("<li class='ui-state-default'/>").appendTo($("#components"));
+      var segment_image = lookup_segment_image(i);
       component_container.data("seg", i);
+      component_container.data("pin", (segment_image.length > 0 ? segment_image.data("pin") : 0));
+      
       // create a component
       var component = $("<div class='component'/>").appendTo(component_container);
       // add text showing segment number
       $("<div/>").appendTo(component).addClass("seg").text((i==0 ? "-" : i));
       // add text showing pin number 
-      var segment_image = $("img[data-seg='" + i + "']")
-      $("<div/>").appendTo(component).addClass("pin").text(segment_image.data("pin"));
+      $("<div/>").appendTo(component).addClass("pin").text((i==0 ? "-" : component_container.data("pin")));
       // set intial state to 0
       component_container.data("state", 0);
       component.addClass("bit_is_0");          
     }
+    
+    sort_by_segments();
+ }
+
+ function sort_by_segments()
+ {
+  $("#components li").sortElements(function(a, b){
+    return $(a).data("seg") > $(b).data("seg") ? -1 : 1;
+  });
+  render_state();
+  render_list();
  }
  
- // calculate the current value of the pattern
- function update_current_value()
+ function sort_by_pins()
+ {
+  $("#components li").sortElements(function(a, b){
+    return $(a).data("pin") > $(b).data("pin") ? -1 : 1;
+  });
+  render_state();
+  render_list();
+ }
+ 
+ 
+  function reverse()
+  {
+    $("#components li").reverseOrder();
+    render_state();
+    render_list();
+  }
+  
+ 
+ // calculate the current pattern to current_pattern
+ function serialize_current_pattern()
  {
     var i = 0;
-    current_value = 0;
+    
+    current_pattern = 0;
     $("#components li").each(function() {
-      current_value += $(this).data("state") << (15-i)
+      current_pattern += $(this).data("state") * Math.pow(2, $(this).data("seg"));
       i++;
     });
  }
  
- function current_value_as_hex()
+
+ function map_pattern_to_bits(pattern)
  {
-    return value_as_hex(current_value);
+    var i = 15;
+    var bits = 0;
+    var seg;
+    $("#components li").each(function() {
+      seg = $(this).data("seg");
+      bits += ((pattern >> seg) & 0x01) << i;
+      i--;
+    });
+    return bits;
  }
  
- function current_value_as_binary()
- {
-    return value_as_binary(current_value);
- }
+
 
  function render_state() {
     $("img.tile").each(function(){ 
@@ -100,25 +139,39 @@ $(document).ready(function(){
         }
       });
     }); 
-    // update and display current value
-    update_current_value();
-    $("#value_dec").text(current_value);
-    $("#value_hex").text(current_value_as_hex());
-    $("#value_bin").text(current_value_as_binary());
+    // serialize and display current pattern
+    serialize_current_pattern();
+    var bits = map_pattern_to_bits(current_pattern);
+    
+    $("#value_dec").text(bits);
+    $("#value_hex").text(value_as_hex(bits));
+    $("#value_bin").text(value_as_binary(bits));
   }
 
   function render_list()
   {
-    var tr;
+    var tr, bits;
+    var export_code = "";
+    
     $("#value_table").children().remove();
     //$("#value_table").text("Values:");
-    $.each(values, function(index, value) { 
+    $.each(patterns, function(index, pattern) {
+      bits = map_pattern_to_bits(pattern);
+      
       tr = $("<tr/>").appendTo($("#value_table"));
-      $("<td width='10%' class='number'/>").appendTo(tr).text(value);
-      $("<td width='10%' class='number'/>").appendTo(tr).text(value_as_hex(value));
-      $("<td width='30%' class='number'/>").appendTo(tr).text(value_as_binary(value));
-      $("<td width='50%' class='comment'/>").appendTo(tr).text("// " + comments[index]);
+      $("<td width='5%' class='number'/>").appendTo(tr).text(index);
+      $("<td width='10%' class='number'/>").appendTo(tr).text(bits);
+      $("<td width='10%' class='number'/>").appendTo(tr).text(value_as_hex(bits));
+      $("<td width='30%' class='number'/>").appendTo(tr).text(value_as_binary(bits));
+      $("<td width='45%' class='comment'/>").appendTo(tr).text("// " + comments[index]);
+      
+      export_code += value_as_hex(bits) + ", // " + index.toString() + " - " + comments[index] + "\n"
     });
+    
+    
+    $("#value_table_container").animate({ scrollTop: $("#value_table_container").attr("scrollHeight") }, 3000);  
+    
+    $("#export_text").val("uint16_t pattern[] = {\n" + export_code + "};\n");
   }
 
   function lookup_segment_image(segment_number)
@@ -137,6 +190,7 @@ $(document).ready(function(){
   $("img.tile").click(function() {
     toggle_state($(this));
     render_state();
+    
   });
   
   // toggle corresponding segment when component clicked on
@@ -158,7 +212,7 @@ $(document).ready(function(){
 
   // add the current pattern to the list
   $("#add_value").click(function() {
-    values.push(current_value);
+    patterns.push(current_pattern);
     comments.push($("#value_comment").val()); 
     render_list();
     // clear comment ready for next patter
@@ -167,8 +221,53 @@ $(document).ready(function(){
 
   // clear the list of patterns
   $("#clear_values").click(function() {
-    values = new Array();
+    patterns = new Array();
     comments = new Array();
     render_list();
   });
+ 
+  $("#export").click(function() {
+    var text_area = $("#export_text");
+    $("#export_dialog").dialog('open');
+    text_area.focus();
+    text_area.select();
+  });
+ 
+   // fill pattern
+  $("#fill_pattern").click(function() {
+    $("img.tile").each(function() {
+      $(this).data("state", 1); 
+     });
+    render_state();
+  });
+  
+  // invert pattern
+  $("#invert_pattern").click(function() {
+    $("img.tile").each(function() {
+      $(this).data("state", (($(this).data("state")) == 1 ? 0 : 1)); 
+     });
+    render_state();
+  });  
+  
+  // clear pattern
+  $("#clear_pattern").click(function() {
+    $("img.tile").each(function() {
+      $(this).data("state", 0); 
+     });
+    render_state();
+  });
+  
+  $("#sort_segments").click(function() {
+    sort_by_segments();
+  });
+  
+  $("#sort_pins").click(function() {
+    sort_by_pins();
+  });
+  
+  $("#reverse").click(function() {
+    reverse();
+  });
+  
+  
 });
