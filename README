@@ -1,0 +1,7 @@
+This is a web-based tool for designing characters and patterns on the Burroughs B-7971 nixie tube and mapping them to port or shift register bit orderings. Designs are presented as decimal, hex, and binary values. Designs can be exported as C-code for incorporation into firmware or software for clock and four-letter-word style projects.
+
+A hosted version of the project can be found at http://b7971.lucsmall.com/
+
+The code makes extensive use of JQuery, JQuery UI, JQuery Reverse Order plugin, and JQuery Sort Elements. Thanks to the developers of those great projects.
+
+

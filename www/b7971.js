@@ -25,7 +25,8 @@ $(document).ready(function(){
     $("#components").disableSelection();
   
     $(".button").button();
-    $("#export_dialog").dialog({ autoOpen: false, width: 'auto' });
+    $("#export_dialog").dialog({ autoOpen: false, width: 'auto', modal: true });
+    $("#about_dialog").dialog({ autoOpen: false, width: '600px', modal: true });
 
     // fade down tiles for unselected
     $("img.tile").fadeTo(0, 0.1);
@@ -248,6 +249,10 @@ $(document).ready(function(){
     $("#export_dialog").dialog('open');
     text_area.focus();
     text_area.select();
+  });
+ 
+   $("#about").click(function() {
+    $("#about_dialog").dialog('open');
   });
  
    // show pattern
