@@ -25,8 +25,8 @@ $(document).ready(function(){
     $("#components").disableSelection();
   
     $(".button").button();
-    $("#export_dialog").dialog({ autoOpen: false, width: 'auto', modal: true });
-    $("#about_dialog").dialog({ autoOpen: false, width: '600px', modal: true });
+    $("#export_dialog").dialog({ autoOpen: false, width: 650, height: 450, modal: true, resizable: false });
+    $("#about_dialog").dialog({ autoOpen: false, width: 650, height: 450, modal: true, resizable: false });
 
     // fade down tiles for unselected
     $("img.tile").fadeTo(0, 0.1);
